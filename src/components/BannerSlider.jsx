@@ -1,28 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-const NextArrow = ({ onClick }) => (
-  <div
-    className="absolute top-1/2 -right-5 transform -translate-y-1/2 z-10 cursor-pointer text-white text-2xl"
-    onClick={onClick}
-  >
-    <FaArrowRight />
-  </div>
-);
-
-const PrevArrow = ({ onClick }) => (
-  <div
-    className="absolute top-1/2 -left-5 transform -translate-y-1/2 z-10 cursor-pointer text-white text-2xl"
-    onClick={onClick}
-  >
-    <FaArrowLeft />
-  </div>
-);
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const BannerSlider = ({ movies }) => {
+  const sliderRef = useRef(null);
+
   const settings = {
     className: "center",
     centerMode: true,
@@ -30,8 +16,7 @@ const BannerSlider = ({ movies }) => {
     centerPadding: "80px",
     slidesToShow: 6,
     speed: 500,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -51,10 +36,24 @@ const BannerSlider = ({ movies }) => {
   };
 
   return (
-    <div className="relative w-full py-2 bg-[#6C010D]">
-      <Slider {...settings}>
+    <div className="relative w-full py-2">
+      <div className="flex items-center gap-2 ml-28">
+        <div className="p-2 border-2 border-[#F91D2170] cursor-pointer">
+          <MdKeyboardArrowLeft
+            size={30}
+            onClick={() => sliderRef.current.slickPrev()}
+          />
+        </div>
+        <div className="p-2 border-2 border-[#F91D2170] cursor-pointer">
+          <MdKeyboardArrowRight
+            size={30}
+            onClick={() => sliderRef.current.slickNext()}
+          />
+        </div>
+      </div>
+      <Slider ref={sliderRef} {...settings}>
         {movies?.map((movie) => (
-          <div key={movie?.imdbID} className="px-2 mt-6">
+          <div key={movie?.imdbID} className="px-2 mt-8">
             <img
               src={movie?.Poster}
               alt={movie?.Title}

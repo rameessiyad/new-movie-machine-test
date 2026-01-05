@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 const MovieListingPage = lazy(() => import("./pages/MovieListing"));
 const MovieDetailsPage = lazy(() => import("./pages/MovieDetails"));
 const BookingPage = lazy(() => import("./pages/BookingScreen"));
+const SearchMoviesPage = lazy(() => import("./pages/SearchMovies"));
 const NotFoundPage = lazy(() => import("./pages/Notfound"));
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<MovieListingPage />} />
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
           <Route path="/booking/:id" element={<BookingPage />} />
+          <Route path="/search" element={<SearchMoviesPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>

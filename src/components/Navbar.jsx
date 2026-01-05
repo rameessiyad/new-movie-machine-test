@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react";
 import LogoImg from "../assets/logo.png";
 import LocationIcon from "../assets/location-icon.svg";
-import { IoSearchOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { IoClose, IoSearchOutline } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchMovies } from "../redux/slices/movieSlice";
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // detect scroll
+  const [scrolled, setScrolled] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        // adjust the scroll threshold
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+
+    dispatch(fetchMovies(query));
+    navigate(`/search?q=${query}`);
+    setQuery("");
+    setShowSearch(false);
+  };
 
   return (
     <header
@@ -65,8 +75,33 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        <div className="px-4 border-l border-white">
-          <IoSearchOutline size={20} className="cursor-pointer" />
+        <div className="px-4 border-l border-white flex items-center gap-2">
+          {showSearch ? (
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center bg-white rounded-lg px-3 py-1"
+            >
+              <input
+                type="text"
+                placeholder="Search movies..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="outline-none text-black w-52 text-sm"
+                autoFocus
+              />
+              <IoClose
+                size={20}
+                className="ml-2 cursor-pointer text-black"
+                onClick={() => setShowSearch(false)}
+              />
+            </form>
+          ) : (
+            <IoSearchOutline
+              size={22}
+              className="cursor-pointer text-white"
+              onClick={() => setShowSearch(true)}
+            />
+          )}
         </div>
       </div>
     </header>

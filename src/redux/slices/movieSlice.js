@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { searchMoviesApi } from "../../api/movieApi";
+import { getMovieDetailsApi, listMoviesApi } from "../../api/movieApi";
 
 const movieSlice = createSlice({
   name: "movies",
@@ -24,26 +24,44 @@ const movieSlice = createSlice({
       state.list = [];
       state.error = action.payload;
     },
+    setBannerMovie: (state, action) => {
+      state.bannerMovie = action.payload;
+    },
   },
 });
 
-export const { fetchMoviesStart, fetchMoviesSuccess, fetchMoviesFailure } =
-  movieSlice.actions;
+export const {
+  fetchMoviesStart,
+  fetchMoviesSuccess,
+  fetchMoviesFailure,
+  setBannerMovie,
+} = movieSlice.actions;
 
-export const fetchMovies =
-  (query, page = 1) =>
-  async (dispatch) => {
-    try {
-      dispatch(fetchMoviesStart());
-      const response = await searchMoviesApi(query, page);
-      if (response.data.Response === "True") {
-        dispatch(fetchMoviesSuccess(response.data));
-      } else {
-        dispatch(fetchMoviesFailure(response.data.Error));
-      }
-    } catch (error) {
-      dispatch(fetchMoviesFailure(error.message));
+export const fetchMovies = () => async (dispatch) => {
+  try {
+    dispatch(fetchMoviesStart());
+    const res = await listMoviesApi();
+
+    if (res.data.Response === "True") {
+      dispatch(fetchMoviesSuccess(res.data.Search));
+
+      const random =
+        res.data.Search[Math.floor(Math.random() * res.data.Search.length)];
+
+      dispatch(fetchBannerMovie(random.imdbID));
     }
-  };
+  } catch (err) {
+    dispatch(fetchMoviesFailure(err.message));
+  }
+};
+
+export const fetchBannerMovie = (imdbID) => async (dispatch) => {
+  try {
+    const res = await getMovieDetailsApi(imdbID);
+    dispatch(setBannerMovie(res.data));
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export default movieSlice.reducer;

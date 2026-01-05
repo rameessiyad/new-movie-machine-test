@@ -1,39 +1,49 @@
 import React from "react";
-import BannerImg from "../assets/banner.png";
 import ImdbLogo from "../assets/imdb-logo.png";
 import { Link } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import Loader from "./Loader";
 
 const Banner = () => {
+  const { bannerMovie, loading } = useSelector((state) => state.movies);
+
+  if (loading || !bannerMovie) {
+    return <Loader fullScreen />;
+  }
+
   return (
     <div className="relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/5 z-10"></div>
+      <div className="absolute inset-0 bg-linear-to-b from-black/80 to-black/5 z-10"></div>
+      <div
+        className="absolute bottom-0 left-0 w-full h-[33%] 
+                  bg-linear-to-t from-[#6C010D] to-transparent z-10"
+      ></div>
       <img
-        src={BannerImg}
-        alt="banner"
-        className="w-fit h-[40%] object-cover"
+        src={bannerMovie.Poster}
+        alt={bannerMovie.Title}
+        className="w-full h-[90vh] object-cover"
       />
 
-      <div className="absolute top-50 left-28 flex flex-col z-20 gap-4 w-[27%]">
-        <h1 className="text-6xl font-semibold">
-          Spider man <br /> No Way Home
-        </h1>
+      <div className="absolute top-42 left-28 flex flex-col z-20 gap-4 w-[27%]">
+        <h1 className="text-6xl font-semibold">{bannerMovie.Title}</h1>
 
         <div className="flex items-center gap-2">
           <img src={ImdbLogo} alt="imdb-logo" />
           <p className="text-sm font-light">
-            8.2 <span className="font-extralight text-gray-400">(12.827)</span>{" "}
-            2021 <span className="font-extralight text-gray-400">|</span> 1 hour
-            55 minutes <span className="font-extralight text-gray-400">|</span>{" "}
-            Sci-fi
+            {bannerMovie.imdbRating}{" "}
+            <span className="font-extralight text-gray-400">
+              ({bannerMovie.imdbVotes})
+            </span>{" "}
+            {bannerMovie.Year}{" "}
+            <span className="font-extralight text-gray-400">|</span>{" "}
+            {bannerMovie.Runtime}{" "}
+            <span className="font-extralight text-gray-400">|</span>{" "}
+            {bannerMovie.Genre}
           </p>
         </div>
 
-        <p className="text-base font-light">
-          Scelerisque sed ultricies tristique. Mi in vivamus aliquam varius eu
-          felis. Id ultricies diam turpis mi tincidunt. Ut morbi sed urna tempor
-          imperdiet eu scelerisque egestas. Interdum mi orci suspendisse in s...
-        </p>
+        <p className="text-base font-light line-clamp-3">{bannerMovie.Plot}</p>
 
         <div className="flex gap-4">
           <Link to="/" className="border border-white rounded-lg px-6 py-3">

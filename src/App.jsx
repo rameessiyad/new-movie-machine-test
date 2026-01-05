@@ -10,8 +10,8 @@ const NotFoundPage = lazy(() => import("./pages/Notfound"));
 
 const App = () => {
   return (
-    <div className="text-white bg-black">
-      <Suspense fallback={<Loader />}>
+    <div className="text-white bg-[#6C010D]">
+      <Suspense fallback={<Loader fullScreen />}>
         <Navbar />
         <Routes>
           <Route path="/" element={<MovieListingPage />} />

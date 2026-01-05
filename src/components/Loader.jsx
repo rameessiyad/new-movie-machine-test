@@ -1,9 +1,13 @@
 import React from "react";
 
-const Loader = () => {
+const Loader = ({ fullScreen = true }) => {
   return (
-    <div>
-      <div className="w-10 h-10 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+    <div
+      className={`flex items-center justify-center ${
+        fullScreen ? "fixed inset-0" : "w-full h-full"
+      } bg-black z-50`}
+    >
+      <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
 };

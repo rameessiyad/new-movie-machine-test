@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Banner from "../components/Banner";
-import { listMoviesApi } from "../api/movieApi";
 import BannerSlider from "../components/BannerSlider";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies, fetchUpcomingMovies } from "../redux/slices/movieSlice";
+import Loader from "../components/Loader";
+import TrendingMoviesSlider from "../components/TrendingMoviesSlider";
+import UpcomingMoviesSlider from "../components/UpcomingMoviesSlider";
 
 const MovieListing = () => {
-  const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
+  const { list, loading } = useSelector((state) => state.movies);
 
   useEffect(() => {
-    listMoviesApi().then((res) => {
-      setMovies(res.data.Search);
-    });
-  }, []);
+    dispatch(fetchMovies());
+    dispatch(fetchUpcomingMovies());
+  }, [dispatch]);
 
-  console.log(movies);
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="">
       <Banner />
-      <BannerSlider movies={movies} />
+      <BannerSlider movies={list} />
+      <TrendingMoviesSlider />
+      <UpcomingMoviesSlider />
     </div>
   );
 };

@@ -9,10 +9,10 @@ export const searchMoviesApi = (query, page = 1) => {
   });
 };
 
-export const listMoviesApi = (query, page = 1) => {
+export const listMoviesApi = (query = "avenger", page = 1) => {
   return axiosInstance.get("/", {
     params: {
-      s: "avenger",
+      s: query,
       page,
     },
   });

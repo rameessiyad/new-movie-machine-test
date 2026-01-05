@@ -27,7 +27,7 @@ const BannerSlider = ({ movies }) => {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "80px", 
+    centerPadding: "80px",
     slidesToShow: 6,
     speed: 500,
     nextArrow: <NextArrow />,
@@ -51,10 +51,10 @@ const BannerSlider = ({ movies }) => {
   };
 
   return (
-    <div className="relative w-full py-2">
+    <div className="relative w-full py-2 bg-[#6C010D]">
       <Slider {...settings}>
         {movies?.map((movie) => (
-          <div key={movie?.imdbID} className="px-2">
+          <div key={movie?.imdbID} className="px-2 mt-6">
             <img
               src={movie?.Poster}
               alt={movie?.Title}

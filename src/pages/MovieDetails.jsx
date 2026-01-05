@@ -9,6 +9,7 @@ import CastSlider from "../components/CastSlider";
 import DateSelector from "../components/DateSelector";
 import TheaterShowtimes from "../components/TheatreShowTimes";
 import FooterBooking from "../components/FooterBooking";
+import MovieBooking from "../components/MovieBooking";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -26,8 +27,7 @@ const MovieDetails = () => {
       <MovieBanner movie={bannerMovie} />
       <MovieAbout plot={bannerMovie.Plot} />
       <CastSlider cast={bannerMovie.Actors} />
-      <DateSelector />
-      <TheaterShowtimes />
+      <MovieBooking />
       <FooterBooking />
     </div>
   );

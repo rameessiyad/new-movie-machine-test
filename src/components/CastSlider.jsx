@@ -21,8 +21,8 @@ const CastSlider = ({ cast }) => {
   };
 
   return (
-    <div className="p-8 mt-4">
-      <h2 className="text-2xl font-semibold mb-3">Cast</h2>
+    <div className="p-8 mt-4 container max-w-[1350px] mx-auto">
+      <span className="text-2xl font-semibold mb-3">Cast</span>
       <Slider {...settings}>
         {castArray.map((actor, idx) => (
           <div key={idx} className="p-2">

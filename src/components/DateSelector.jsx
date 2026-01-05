@@ -5,7 +5,7 @@ const DateSelector = () => {
   const days = Array.from({ length: 7 }, (_, i) => i + new Date().getDate());
 
   return (
-    <div className="p-8 flex gap-4 overflow-x-auto mt-4">
+    <div className="p-8 flex gap-4 overflow-x-auto mt-4 max-w-[1350px] container mx-auto">
       {days.map((day) => (
         <div
           key={day}

@@ -28,7 +28,7 @@ const MovieDetails = () => {
       <MovieAbout plot={bannerMovie.Plot} />
       <CastSlider cast={bannerMovie.Actors} />
       <MovieBooking />
-      <FooterBooking />
+      <FooterBooking id={id} />
     </div>
   );
 };

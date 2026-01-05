@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const BannerSlider = ({ movies }) => {
   const sliderRef = useRef(null);
@@ -54,11 +55,17 @@ const BannerSlider = ({ movies }) => {
       <Slider ref={sliderRef} {...settings}>
         {movies?.map((movie) => (
           <div key={movie?.imdbID} className="px-2 mt-8">
-            <img
-              src={movie?.Poster}
-              alt={movie?.Title}
-              className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full"
-            />
+            <Link
+              to={`/movie/${movie.imdbID}`}
+              key={movie.imdbID}
+              className="px-2"
+            >
+              <img
+                src={movie?.Poster}
+                alt={movie?.Title}
+                className="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 w-full"
+              />
+            </Link>
           </div>
         ))}
       </Slider>

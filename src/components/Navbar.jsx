@@ -28,11 +28,13 @@ const Navbar = () => {
       className={`flex items-center justify-between p-4 container mx-auto px-30 fixed z-20 transition-colors duration-500 ${
         scrolled
           ? "bg-linear-to-b from-black/90 to-black/40 backdrop-blur-sm"
-          : "bg-transparent" 
+          : "bg-transparent"
       }`}
     >
       <div className="flex items-center gap-3">
-        <img src={LogoImg} alt="logo" />
+        <Link to="/">
+          <img src={LogoImg} alt="logo" />
+        </Link>
         <div className="flex items-center gap-2">
           <img src={LocationIcon} alt="location-icon" />
           <div>
@@ -45,16 +47,26 @@ const Navbar = () => {
       <div className="flex items-center justify-between gap-10">
         <nav>
           <ul className="flex items-center justify-between gap-8 text-white">
-            <Link to="/"><li>New Movies</li></Link>
-            <Link to="/"><li>Genres</li></Link>
-            <Link to="/"><li>Country</li></Link>
-            <Link to="/"><li>Movie</li></Link>
-            <Link to="/"><li>TV Series</li></Link>
+            <Link to="/">
+              <li>New Movies</li>
+            </Link>
+            <Link to="/">
+              <li>Genres</li>
+            </Link>
+            <Link to="/">
+              <li>Country</li>
+            </Link>
+            <Link to="/">
+              <li>Movie</li>
+            </Link>
+            <Link to="/">
+              <li>TV Series</li>
+            </Link>
           </ul>
         </nav>
 
         <div className="px-4 border-l border-white">
-          <IoSearchOutline size={20} className="cursor-pointer"/>
+          <IoSearchOutline size={20} className="cursor-pointer" />
         </div>
       </div>
     </header>

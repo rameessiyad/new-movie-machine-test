@@ -41,20 +41,20 @@ const MovieBooking = () => {
   const weekdays = ["Fri", "Sat", "Sun", "Mon", "Thu", "Wed", "Tue"];
 
   return (
-    <div className="bg-[#1A00046B] min-h-[80vh] p-8 flex flex-col gap-8 max-w-[1350px] mx-auto container rounded-2xl">
+    <div className="bg-[#1A00046B] min-h-[90vh] p-8 pb-32 flex flex-col gap-8 max-w-[1350px] mx-auto container rounded-2xl">
       <div className="flex gap-4 overflow-x-auto">
         {days.map((day, idx) => (
           <div
             key={day}
             onClick={() => setSelectedDate(day)}
-            className={`flex flex-col items-center justify-center cursor-pointer min-w-[50px] p-2 rounded-full transition ${
+            className={`flex flex-col items-center justify-center cursor-pointer min-w-[70px] p-4 rounded-lg transition ${
               selectedDate === day
                 ? "bg-white text-black font-semibold"
                 : "bg-[#4B0D12] text-gray-300"
             }`}
           >
-            <p className="text-xs">{weekdays[idx]}</p>
-            <p className="text-sm mt-1">{day}</p>
+            <p className="text-3xl mt-2">{day}</p>{" "}
+            <p className="text-sm text-gray-300">{weekdays[idx]}</p>{" "}
           </div>
         ))}
       </div>
@@ -69,7 +69,7 @@ const MovieBooking = () => {
               <img
                 src={theater.logo}
                 alt={theater.name}
-                className="w-10 h-10 object-contain rounded-full"
+                className="w-20 h-20 object-contain rounded-full"
               />
               <div className="flex flex-col">
                 <h3 className="text-white font-semibold text-lg">
